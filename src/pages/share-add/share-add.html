@@ -23,7 +23,7 @@
 					</div>
 
 					<ion-item>
-						<ion-input type="text" placeholder="Token" name="token_share" [(ngModel)]="user_session.token_share" required [class.invalid]="wrong_data.token && Sharesubmit"></ion-input>
+						<ion-input style="text-transform:uppercase" type="text" placeholder="Token" name="token_share" [(ngModel)]="user_session.token_share" required [class.invalid]="wrong_data.token && Sharesubmit"></ion-input>
 					</ion-item>
 
 					<div *ngIf="wrong_data.token && Sharesubmit">

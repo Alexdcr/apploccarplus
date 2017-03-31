@@ -205,7 +205,16 @@ export class DashboardPage {
     }
 
     goToCarInfo(car_id) {
-        this.nav.push(CarsPage, { 'car_id': car_id });
+        let modal = this.modal.create(CarsPage, { 'car_id': car_id });
+        modal.onDidDismiss(() => {
+            NativeStorage.getItem('user_cars').then(
+                (data_user_cars) => { this.user_cars = JSON.parse(data_user_cars) },
+                (error) => { });
+            NativeStorage.getItem('count_cars').then(
+                (data_count_cars) => { this.count_cars = JSON.parse(data_count_cars) },
+                (error) => { });
+        });
+        modal.present();
     }
 
     goToGetTest() {

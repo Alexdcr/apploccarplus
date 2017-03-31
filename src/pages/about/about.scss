@@ -1,0 +1,68 @@
+.ios,
+.md {
+	page-about {
+		.about-content {
+			background: #54acc9;
+
+			.about-title {
+				font-weight: bold;
+				color: #d9d9d9;
+				text-align: left;
+				border: 0;
+				background-color: #39849d;
+			}
+
+			.about-label {
+				color: #d9d9d9;
+				text-align: right;
+				padding-right: 24px !important;
+				border: 0;
+				background-color: #39849d;
+			}
+
+			.about-box {
+				background: #39849d;
+				padding: 10px 15px;
+				margin-top: 10px;
+				border-radius: 10px !important;
+				color: #d2d2d2;
+
+				ion-list {
+					margin-bottom: 0;
+				}
+			}
+
+			ion-row {
+				align-items: center;
+				text-align: center;
+			}
+
+			ion-item {
+				border-radius: 30px !important;
+				padding-left: 30px !important;
+				font-size: 0.9em;
+				margin-bottom: 10px;
+				border: 1px solid #ffffff;
+				border-bottom: 0 !important;
+				box-shadow: none !important;
+			}
+
+			.car-item,
+			button.item {
+				padding-left: 30px !important;
+				background-color: #39849d;
+				color: #ffffff;
+				border-bottom: 0 !important;
+			}
+
+			.about-list {
+				margin-top: 14%;
+			}
+
+			.item-inner {
+				border-bottom-color: #ffffff !important;
+				box-shadow: none !important;
+			}
+		}
+	}
+}

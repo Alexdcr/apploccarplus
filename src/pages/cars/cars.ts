@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ToastController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ToastController, ModalController, ViewController } from 'ionic-angular';
 import { ApiService } from '../../providers/api-service';
 import { NativeStorage } from 'ionic-native';
 import { Geolocation } from 'ionic-native';
@@ -115,7 +115,7 @@ export class CarsPage {
     public response_enable: any;
     public response_disable: any;
 
-    constructor(public nav: NavController, public params: NavParams, public apiServ: ApiService, public platform: Platform, public alert: AlertController, public modal: ModalController, public toast: ToastController) {
+    constructor(public nav: NavController, public params: NavParams, public apiServ: ApiService, public platform: Platform, public alert: AlertController, public modal: ModalController, public viewCtrl: ViewController, public toast: ToastController) {
         platform.ready().then(() => {
             this.find_car_id = JSON.parse(this.params.get('car_id'));
 
@@ -142,6 +142,10 @@ export class CarsPage {
 
         });
     }
+
+		dismiss() {
+			this.viewCtrl.dismiss();
+		}
 
     goToGetCarInfo() {
         this.GetCarsubmit = true;
@@ -356,6 +360,41 @@ export class CarsPage {
 
     goToEnableShare() {
         let modal = this.modal.create(ShareTokenPage, { 'car_id': this.user_car.id });
+				modal.onDidDismiss(() => {
+					this.apiServ.toGetCarInfo(this.user_session)
+	            .then(data => {
+	                this.response_get = data;
+	                if (this.response_get.status == "success") {
+	                    this.user_car = this.response_get.user_car;
+
+	                } else if (this.response_get.status == "error" && this.response_get.type == "Empty car id") {
+	                    this.error_session.session_id = false;
+	                    this.error_session.session_token = false;
+	                    this.error_session.user = true;
+	                    this.error_session.text = "An error occurred the car I selected could not be foundplease try again later.";
+	                } else if (this.response_get.status == "error" && this.response_get.type == "session_id") {
+	                    this.error_session.session_id = true;
+	                    this.error_session.session_token = false;
+	                    this.error_session.user = false;
+	                    this.error_session.text = "There was an error retrieving your car information, please try again later(id).";
+	                } else if (this.response_get.status == "error" && this.response_get.type == "session_token") {
+	                    this.error_session.session_id = false;
+	                    this.error_session.session_token = true;
+	                    this.error_session.user = false;
+	                    this.error_session.text = "There was an error retrieving your car information, please try again later(token).";
+	                } else if (this.response_get.status == "error" && this.response_get.type == "Error on car") {
+	                    this.error_session.session_id = false;
+	                    this.error_session.session_token = false;
+	                    this.error_session.user = true;
+	                    this.error_session.text = "An error has occurred the car I select does not exist, please try again later.";
+	                } else if (this.response_get.status == "error" && this.response_get.type == "User not logged") {
+	                    this.error_session.session_id = true;
+	                    this.error_session.session_token = true;
+	                    this.error_session.user = false;
+	                    this.error_session.text = "An error occurred with the session, please try again later.";
+	                }
+	            });
+				})
         modal.present();
     }
 

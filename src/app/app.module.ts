@@ -18,6 +18,7 @@ import { ShareAddPage } from '../pages/share-add/share-add';
 import { SharedCarInfoPage } from '../pages/shared-car-info/shared-car-info';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
+import { AboutPage } from '../pages/about/about';
 
 //Declarations extra modules
 import { MultiPickerModule } from 'ion-multi-picker';
@@ -52,7 +53,8 @@ const cloudSettings: CloudSettings = {
 				ShareAddPage,
 				SharedCarInfoPage,
 				ForgotPasswordPage,
-				ChangePasswordPage
+				ChangePasswordPage,
+				AboutPage
     ],
     imports: [
         IonicModule.forRoot(MyApp),
@@ -78,7 +80,8 @@ const cloudSettings: CloudSettings = {
 				ShareAddPage,
 				SharedCarInfoPage,
 				ForgotPasswordPage,
-				ChangePasswordPage
+				ChangePasswordPage,
+				AboutPage
     ],
     providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, ConnectivityService, ApiService]
 })

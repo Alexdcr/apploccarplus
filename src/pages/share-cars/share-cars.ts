@@ -66,7 +66,16 @@ export class ShareCarsPage {
     }
 
     goToCarInfo(car_id) {
-        this.nav.push(SharedCarInfoPage, { 'car_id': car_id });
+        let modal = this.modal.create(SharedCarInfoPage, { 'car_id': car_id });
+        modal.onDidDismiss(() => {
+            NativeStorage.getItem('shared_cars_touser').then(
+                (data_shared_cars_touser) => { this.shared_user_cars = JSON.parse(data_shared_cars_touser) },
+                (error) => { });
+            NativeStorage.getItem('shared_count_cars').then(
+                (data_shared_count_cars) => { this.shared_count_cars = JSON.parse(data_shared_count_cars) },
+                (error) => { });
+        });
+        modal.present();
     }
 
 }

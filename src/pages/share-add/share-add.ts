@@ -102,7 +102,8 @@ export class ShareAddPage {
 
     toGetInfoCar() {
         this.Sharesubmit = true;
-
+				this.wrong_session.text = '';
+				this.wrong_data.text = '';
         this.apiServ.toValidateTokenShare(this.user_session)
             .then(data => {
                 this.response_get = data;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, Platform, ToastController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Platform, ToastController, ModalController, ViewController } from 'ionic-angular';
 import { ApiService } from '../../providers/api-service';
 import { NativeStorage } from 'ionic-native';
 import { Geolocation } from 'ionic-native';
@@ -113,9 +113,9 @@ export class SharedCarInfoPage {
     public response_get: any;
     public response_enable: any;
     public response_disable: any;
-		public response_disable_share: any;
+    public response_disable_share: any;
 
-    constructor(public nav: NavController, public params: NavParams, public apiServ: ApiService, public platform: Platform, public alert: AlertController, public modal: ModalController, public toast: ToastController) {
+    constructor(public nav: NavController, public params: NavParams, public apiServ: ApiService, public platform: Platform, public alert: AlertController, public modal: ModalController, public viewCtrl: ViewController, public toast: ToastController) {
         platform.ready().then(() => {
             this.find_car_id = JSON.parse(this.params.get('car_id'));
 
@@ -143,6 +143,10 @@ export class SharedCarInfoPage {
         });
     }
 
+    dismiss() {
+        this.viewCtrl.dismiss();
+    }
+
     goToGetCarInfo() {
         this.GetCarsubmit = true;
 
@@ -150,8 +154,8 @@ export class SharedCarInfoPage {
             .then(data => {
                 this.response_get = data;
                 if (this.response_get.status == "success") {
-                    this.owner_car_info = this.response_get.user_car;
-										if ((this.owner_car_info.lat != this.owner_car_info.lat_last) || (this.owner_car_info.long != this.owner_car_info.long_last)) {
+                    this.owner_car_info = this.response_get.shared_car;
+                    if ((this.owner_car_info.lat != this.owner_car_info.lat_last) || (this.owner_car_info.long != this.owner_car_info.long_last)) {
                         let alert = this.alert.create({
                             title: 'Location',
                             subTitle: 'A change was detected in the location of your vehicle, please check the status of your vehicle.',
@@ -226,7 +230,7 @@ export class SharedCarInfoPage {
                 buttons: ['OK']
             });
             alert.onDidDismiss(() => {
-							this.owner_car_info.shared_active = false;
+                this.owner_car_info.shared_active = false;
             });
             alert.present();
         } else {
@@ -261,7 +265,7 @@ export class SharedCarInfoPage {
             .then(data => {
                 this.response_enable = data;
                 if (this.response_enable.status == "success") {
-                    this.owner_car_info = this.response_enable.user_car;
+                    this.owner_car_info = this.response_enable.shared_car;
 
                     NativeStorage.remove('shared_cars_touser').then(() => { }, (error) => { });
                     NativeStorage.remove('shared_count_cars').then(() => { }, (error) => { });
@@ -320,7 +324,7 @@ export class SharedCarInfoPage {
             .then(data => {
                 this.response_disable = data;
                 if (this.response_disable.status == "success") {
-                    this.owner_car_info = this.response_disable.user_car;
+                    this.owner_car_info = this.response_disable.shared_car;
 
                     NativeStorage.remove('shared_cars_touser').then(() => { }, (error) => { });
                     NativeStorage.remove('shared_count_cars').then(() => { }, (error) => { });
@@ -373,55 +377,54 @@ export class SharedCarInfoPage {
     }
 
     goToDisableShare() {
-			this.apiServ.toDisableShare(this.user_session)
-					.then(data => {
-							this.response_disable_share = data;
-							if (this.response_disable_share.status == "success") {
-									this.owner_car_info = this.response_disable_share.user_car;
+        this.apiServ.toDisableShare(this.user_session)
+            .then(data => {
+                this.response_disable_share = data;
+                if (this.response_disable_share.status == "success") {
+                    this.owner_car_info = this.response_disable_share.shared_car;
 
-									NativeStorage.remove('shared_cars_touser').then(() => { }, (error) => { });
-									NativeStorage.remove('shared_count_cars').then(() => { }, (error) => { });
-									NativeStorage.setItem('shared_cars_touser', JSON.stringify(this.response_disable_share.shared_cars_touser)).then(() => { }, error => { });
-									NativeStorage.setItem('shared_count_cars', JSON.stringify(this.response_disable_share.shared_count_cars)).then(() => { }, error => { });
-									let toast = this.toast.create({
-											message: 'Share function disable successfully!!',
-											duration: 2000,
-											position: 'middle',
-											cssClass: 'success success-message'
-									});
-									toast.present();
-							} else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "Empty car id") {
-									this.wrong_session.session_id = false;
-									this.wrong_session.session_token = false;
-									this.wrong_session.user = true;
-									this.wrong_session.text = "An error occurred the car I selected could not be foundplease try again later.";
-							} else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "session_id") {
-									this.wrong_session.session_id = true;
-									this.wrong_session.session_token = false;
-									this.wrong_session.user = false;
-									this.wrong_session.text = "There was an error retrieving your car information, please try again later(id).";
-							} else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "session_token") {
-									this.wrong_session.session_id = false;
-									this.wrong_session.session_token = true;
-									this.wrong_session.user = false;
-									this.wrong_session.text = "There was an error retrieving your car information, please try again later(token).";
-							} else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "Error on car") {
-									this.wrong_session.session_id = false;
-									this.wrong_session.session_token = false;
-									this.wrong_session.user = true;
-									this.wrong_session.text = "An error has occurred the car I select does not exist, please try again later.";
-							} else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "User not logged") {
-									this.wrong_session.session_id = true;
-									this.wrong_session.session_token = true;
-									this.wrong_session.user = false;
-									this.wrong_session.text = "An error occurred with the session, please try again later.";
-							} else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "Error share disable") {
-									this.wrong_session.session_id = false;
-									this.wrong_session.session_token = false;
-									this.wrong_session.user = true;
-									this.wrong_session.text = "The share function for this car is not enabled.";
-							}
-					});
+                    let toast = this.toast.create({
+                        message: 'Share function disable successfully!!',
+                        duration: 2000,
+                        position: 'middle',
+                        cssClass: 'success success-message'
+                    });
+                    toast.onDidDismiss(() => {
+                        this.goToDashboard();
+                    })
+                    toast.present();
+                } else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "Empty car id") {
+                    this.wrong_session.session_id = false;
+                    this.wrong_session.session_token = false;
+                    this.wrong_session.user = true;
+                    this.wrong_session.text = "An error occurred the car I selected could not be foundplease try again later.";
+                } else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "session_id") {
+                    this.wrong_session.session_id = true;
+                    this.wrong_session.session_token = false;
+                    this.wrong_session.user = false;
+                    this.wrong_session.text = "There was an error retrieving your car information, please try again later(id).";
+                } else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "session_token") {
+                    this.wrong_session.session_id = false;
+                    this.wrong_session.session_token = true;
+                    this.wrong_session.user = false;
+                    this.wrong_session.text = "There was an error retrieving your car information, please try again later(token).";
+                } else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "Error on car") {
+                    this.wrong_session.session_id = false;
+                    this.wrong_session.session_token = false;
+                    this.wrong_session.user = true;
+                    this.wrong_session.text = "An error has occurred the car I select does not exist, please try again later.";
+                } else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "User not logged") {
+                    this.wrong_session.session_id = true;
+                    this.wrong_session.session_token = true;
+                    this.wrong_session.user = false;
+                    this.wrong_session.text = "An error occurred with the session, please try again later.";
+                } else if (this.response_disable_share.status == "error" && this.response_disable_share.type == "Error share disable") {
+                    this.wrong_session.session_id = false;
+                    this.wrong_session.session_token = false;
+                    this.wrong_session.user = true;
+                    this.wrong_session.text = "The share function for this car is not enabled.";
+                }
+            });
     }
 
     goToCarLocation() {
@@ -436,6 +439,15 @@ export class SharedCarInfoPage {
             let modal = this.modal.create(MapPage, { 'car_info': JSON.stringify(this.owner_car_info) });
             modal.present();
         }
+    }
+
+    goToDashboard() {
+        NativeStorage.remove('shared_cars_touser').then(() => { }, (error) => { });
+        NativeStorage.remove('shared_count_cars').then(() => { }, (error) => { });
+        NativeStorage.setItem('shared_cars_touser', JSON.stringify(this.response_disable_share.shared_cars_touser)).then(() => { }, error => { });
+        NativeStorage.setItem('shared_count_cars', JSON.stringify(this.response_disable_share.shared_count_cars)).then(() => { }, error => { });
+
+        this.viewCtrl.dismiss();
     }
 
 }

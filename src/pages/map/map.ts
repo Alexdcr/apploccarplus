@@ -114,25 +114,34 @@ export class MapPage {
         }
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-        if ((this.car_info.lat != this.car_info.lat_last) || (this.car_info.long != this.car_info.long_last)) {
-            this.latlng = new google.maps.LatLng(this.car_info.lat_last, this.car_info.lat_last);
-            this.marker = new google.maps.Marker({
+        /*if ((this.car_info.lat != this.car_info.lat_last) || (this.car_info.long != this.car_info.long_last)) {
+            let latlng = new google.maps.LatLng(this.car_info.lat_last, this.car_info.lat_last);
+            let marker = new google.maps.Marker({
                 map: this.map,
                 animation: google.maps.Animation.DROP,
                 position: this.latlng
             });
-            this.content = "<h5>Your " + this.car_info.car_model + "-" + this.car_info.car_type + " last location!</h5>";
-            this.addInfoWindow(this.marker, this.content);
+            let content = "<h5>Your " + this.car_info.car_model + "-" + this.car_info.car_type + " last location!</h5>";
+            this.addInfoWindow(marker, content);
         } else {
-            this.latlng = new google.maps.LatLng(this.car_info.lat_last, this.car_info.lat_last);
-            this.marker = new google.maps.Marker({
+            let latlng = new google.maps.LatLng(this.car_info.lat_last, this.car_info.lat_last);
+            let marker = new google.maps.Marker({
                 map: this.map,
                 animation: google.maps.Animation.DROP,
                 position: this.latlng
             });
-            this.content = "<h5>Your " + this.car_info.car_model + "-" + this.car_info.car_type + " location!</h5>";
-            this.addInfoWindow(this.marker, this.content);
-        }
+            let content = "<h5>Your " + this.car_info.car_model + "-" + this.car_info.car_type + " location!</h5>";
+            this.addInfoWindow(marker, content);
+        }*/
+
+				let latlng = new google.maps.LatLng(this.car_info.lat_last, this.car_info.lat_last);
+				let marker = new google.maps.Marker({
+						map: this.map,
+						animation: google.maps.Animation.DROP,
+						position: this.latlng
+				});
+				let content = "<h5>Your " + this.car_info.car_model + "-" + this.car_info.car_type + " location!</h5>";
+				this.addInfoWindow(marker, content);
     }
 
     addInfoWindow(marker, content) {

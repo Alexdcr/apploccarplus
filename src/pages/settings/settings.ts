@@ -3,6 +3,7 @@ import { NavController, NavParams, ModalController, AlertController, Platform, A
 
 import { AccountPage } from '../account/account';
 import { ChangePasswordPage } from '../change-password/change-password';
+import { AboutPage } from '../about/about';
 import { ApiService } from '../../providers/api-service';
 import { NativeStorage } from 'ionic-native';
 
@@ -40,7 +41,7 @@ export class SettingsPage {
     //post request
     public response: any;
 
-    constructor(private _app: App, public nav: NavController, public navParams: NavParams, public platform: Platform, public apiServ: ApiService, public modal: ModalController, public alert: AlertController, public toast: ToastController, public loading: LoadingController) {
+    constructor(private _app: App,  public nav: NavController, public navParams: NavParams, public platform: Platform, public apiServ: ApiService, public modal: ModalController, public alert: AlertController, public toast: ToastController, public loading: LoadingController) {
         platform.ready().then(() => {
             NativeStorage.getItem('user_session_info').then(
                 (data_session) => {
@@ -66,6 +67,11 @@ export class SettingsPage {
 			let modal = this.modal.create(ChangePasswordPage);
 			modal.present();
     }
+
+		goToAbout() {
+			let modal = this.modal.create(AboutPage);
+			modal.present();
+		}
 
     goToHome() {
         //For Remember User data
