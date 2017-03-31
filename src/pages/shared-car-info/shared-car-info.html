@@ -1,0 +1,75 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Car Info</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="cars-content" padding>
+	<div class="cars-box">
+		<ion-row>
+			<ion-col>
+				<ion-list inset>
+					<div *ngIf="(error_session.session_id || error_session.session_token || error_session.user) && GetCarsubmit">
+						<p>{{ error_session.text }}</p>
+					</div>
+
+					<ion-item>
+						<ion-label>Owner: </ion-label>
+						<ion-input type="text" [(ngModel)]="owner_car_info.owner_name" readonly name="owner_name"></ion-input>
+					</ion-item>
+
+					<ion-item>
+						<ion-label>Model: </ion-label>
+						<ion-input type="text" [(ngModel)]="owner_car_info.car_model" readonly name="car_model"></ion-input>
+					</ion-item>
+
+					<ion-item>
+						<ion-label>Type: </ion-label>
+						<ion-input type="text" [(ngModel)]="owner_car_info.car_type" readonly name="car_type"></ion-input>
+					</ion-item>
+
+					<div *ngIf="owner_car_info.alarm_active == true">
+						<ion-item (click)="alarmChange()">
+			      	<ion-label>Alarm enable</ion-label>
+							<ion-icon color="loccar" ios="ios-radio-button-on" md="md-radio-button-on" item-right></ion-icon>
+			    	</ion-item>
+					</div>
+
+					<div *ngIf="owner_car_info.alarm_active == false">
+						<ion-item (click)="alarmChange()">
+			      	<ion-label>Alarm disable</ion-label>
+							<ion-icon color="loccar" ios="ios-radio-button-off" md="md-radio-button-off" item-right></ion-icon>
+			    	</ion-item>
+					</div>
+
+					<div *ngIf="owner_car_info.shared_active == true">
+						<ion-item (click)="shareChange()">
+			      	<ion-label>Share enable</ion-label>
+							<ion-icon color="loccar" ios="ios-radio-button-on" md="md-radio-button-on" item-right></ion-icon>
+			    	</ion-item>
+					</div>
+
+					<div *ngIf="owner_car_info.shared_active == false">
+						<ion-item (click)="shareChange()">
+			      	<ion-label>Share disable</ion-label>
+							<ion-icon color="loccar" ios="ios-radio-button-off" md="md-radio-button-off" item-right></ion-icon>
+			    	</ion-item>
+					</div>
+
+					<div *ngIf="(wrong_session.session_id || wrong_session.session_token || wrong_session.user) && PostCarsubmit">
+						<p>{{ wrong_session.text }}</p>
+					</div>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col class="cars-col">
+				<button ion-button class="submit-btn" full type="submit" (click)="goToCarLocation()">Locate</button>
+			</ion-col>
+		</ion-row>
+	</div>
+</ion-content>

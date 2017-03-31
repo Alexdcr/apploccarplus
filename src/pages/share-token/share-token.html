@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Share Token</ion-title>
+		<ion-buttons start>
+			<button ion-button (click)="dismiss()">
+        <span color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+		</ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="token-content" padding>
+	<div class="token-box">
+		<ion-row>
+			<ion-col>
+				<ion-list inset>
+					<p>Insert this code on the other mobile device, to share this car:</p>
+					<h1>{{ token_share }}</h1>
+
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col>
+				<div class="please-div" *ngIf="plaseshow">
+					<a class="please-btn">Please wait...</a>
+				</div>
+				<div class="please-div" *ngIf="plaseshow == false">
+					<a class="please-btn">Validate for 90 sec.</a>
+				</div>
+			</ion-col>
+		</ion-row>
+	</div>
+</ion-content>

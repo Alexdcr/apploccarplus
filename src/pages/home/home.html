@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Welcome
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <p style="text-align:center;">Location Car</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button block color="loccar" outline (click)="goToLogin()">Access</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <h5 class="or-label" style="color:#000000; text-align:center;">Or</h5>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button ion-button block color="loccar" (click)="goToRegister()">Register your Car</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

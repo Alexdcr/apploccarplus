@@ -1,0 +1,68 @@
+.ios,
+.md {
+	page-share-token {
+		.token-content {
+			background: #54acc9;
+
+			.token-box {
+				background: #39849d;
+				padding: 10px 15px 0;
+				margin-top: 100px;
+				border-radius: 10px !important;
+			}
+
+			ion-row {
+				align-items: center;
+				text-align: center;
+			}
+
+			ion-item {
+				border-radius: 30px !important;
+				padding-left: 30px !important;
+				font-size: 0.9em;
+				margin-bottom: 10px;
+				border: 1px solid #ffffff;
+				border-bottom: 0 !important;
+				box-shadow: none !important;
+			}
+
+			.token-col {
+				margin: 0 16px;
+				padding-bottom: 20px;
+			}
+
+			.item-inner {
+				border-bottom-color: #ffffff !important;
+				box-shadow: none !important;
+			}
+		}
+
+		p {
+			text-align:justify;
+			font-size: 1.0em;
+			font-weight: bold;
+			color: #d2d2d2;
+		}
+
+		h1 {
+			font-size: 4em;
+			font-weight: bold;
+			color: #e6e6e6;
+		}
+
+		.please-btn {
+       color: #ffffff;
+       font-size: 0.9em;
+     }
+
+		 .please-div {
+			 margin-top: 8%;
+		 }
+
+		.invalid {
+			ion-item {
+				border: 2.5px solid #ea6153;
+			}
+		}
+	}
+}

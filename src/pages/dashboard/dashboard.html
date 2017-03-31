@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar color="bars">
+    <ion-title>Dashboard</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="dashboard-content" padding>
+  <div *ngIf="login_status">
+    <ion-row class="title-row">
+      <ion-col></ion-col>
+      <ion-col width-90>
+        <ion-card class="card-welcome">
+          <div class="welcome-message">
+            <h2 class="card-title">Welcome:</h2>
+            <h2 class="card-name">{{ user_info.name }} {{ user_info.lastname }}</h2>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </div>
+
+  <div class="dashboard-box">
+    <ion-list>
+      <ion-list-header class="list-title">
+        Cars
+      </ion-list-header>
+
+      <div *ngIf="count_cars > 0">
+        <div *ngFor="let car of user_cars">
+          <button ion-item no-lines (click)="goToCarInfo(car.id)">
+		        <ion-label>{{ car.car_model }} - {{ car.car_type }}</ion-label>
+		      </button>
+        </div>
+      </div>
+
+      <div *ngIf="count_cars <= 0">
+        <button class="car-item" ion-item no-lines>
+					<ion-label>No car registered</ion-label>
+				</button>
+      </div>
+    </ion-list>
+  </div>
+
+  <ion-fab right bottom>
+    <button ion-fab class="fab-buttons-tras" (click)="new()"><ion-icon name="car"></ion-icon></button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>New Car</ion-title>
+		<ion-buttons start>
+			<button ion-button (click)="dismiss()">
+        <span color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+		</ion-buttons>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="new-cars-content" padding>
+	<div class="cars-box">
+		<ion-row>
+			<ion-col>
+				<ion-list inset>
+					<div *ngIf="(wrong_session.session_id || wrong_session.session_token || wrong_session.user) && NewCarsubmit">
+						<p>{{ wrong_session.text }}</p>
+					</div>
+
+					<ion-item>
+						<ion-label>Car Model:</ion-label>
+						<ion-multi-picker item-content name="car_model" [(ngModel)]="car_info.car_model" [multiPickerColumns]="models_picker" required [class.invalid]="wrong_data.car_model && NewCarsubmit"></ion-multi-picker>
+					</ion-item>
+
+					<div *ngIf="wrong_data.car_model && NewCarsubmit">
+						<p>{{ wrong_data.text }}</p>
+					</div>
+
+					<ion-item>
+						<ion-label>Car Type:</ion-label>
+						<ion-multi-picker item-content name="car_type" [(ngModel)]="car_info.car_type" [multiPickerColumns]="types_picker" required [class.invalid]="wrong_data.car_type && NewCarsubmit"></ion-multi-picker>
+					</ion-item>
+
+					<div *ngIf="wrong_data.car_type && NewCarsubmit">
+						<p>{{ wrong_data.text }}</p>
+					</div>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col class="cars-col">
+				<button ion-button class="submit-btn" full type="submit" (click)="toSaveCarInformation()">Add</button>
+			</ion-col>
+		</ion-row>
+	</div>
+</ion-content>

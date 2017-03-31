@@ -1,0 +1,59 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Location Car</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="login-content" padding>
+	<ion-row class="logo-row">
+		<ion-col></ion-col>
+		<ion-col width-67>
+			<img src="assets/img/logo-box.png" />
+		</ion-col>
+		<ion-col></ion-col>
+	</ion-row>
+	<div class="login-box">
+		<form #LoginForm="ngForm" (ngSubmit)="goToLogin()">
+			<ion-row>
+				<ion-col>
+					<ion-list inset>
+						<ion-item>
+							<ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="login_info.email" required [class.invalid]="wrong_data.email && Loginsubmit"></ion-input>
+						</ion-item>
+
+						<div *ngIf="wrong_data.email && Loginsubmit">
+							<p>{{ wrong_data.text }}</p>
+						</div>
+
+						<ion-item>
+							<ion-input type="password" placeholder="Password" name="password" [(ngModel)]="login_info.password" required [class.invalid]="wrong_data.pass && Loginsubmit"></ion-input>
+						</ion-item>
+
+						<div *ngIf="wrong_data.pass && Loginsubmit">
+							<p>{{ wrong_data.text }}</p>
+						</div>
+					</ion-list>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!LoginForm.form.valid">Login</button>
+					<div class="register-div">
+						<a class="register-btn" (click)="createAccount()">Create New Account</a>
+					</div>
+				</ion-col>
+      </ion-row>
+		</form>
+	</div>
+	<ion-row>
+		<ion-col class="signup-col">
+			<div class="forgot-div">
+				<a class="forgot-btn" (click)="forgotPassword()">Forgot Password?</a>
+			</div>
+		</ion-col>
+	</ion-row>
+</ion-content>

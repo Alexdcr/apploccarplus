@@ -1,0 +1,58 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Register</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="register-content" padding>
+	<div class="register-box">
+		<form #RegisterForm="ngForm" (ngSubmit)="goToRegister()">
+			<ion-row>
+				<ion-col>
+					<ion-list inset>
+						<ion-item>
+							<ion-input type="text" placeholder="Name" name="name" [(ngModel)]="register_info.name" required [class.invalid]="wrong_data.name && Registersubmit"></ion-input>
+						</ion-item>
+
+						<div *ngIf="wrong_data.name && Registersubmit">
+							<p>{{ wrong_data.text }}</p>
+						</div>
+
+						<ion-item>
+							<ion-input type="text" placeholder="Last Name" name="lastname" [(ngModel)]="register_info.lastname" required [class.invalid]="wrong_data.lastname && Registersubmit"></ion-input>
+						</ion-item>
+
+						<div *ngIf="wrong_data.lastname && Registersubmit">
+							<p>{{ wrong_data.text }}</p>
+						</div>
+
+						<ion-item>
+							<ion-input type="email" placeholder="E-mail" name="email" [(ngModel)]="register_info.email" required [class.invalid]="wrong_data.email && Registersubmit"></ion-input>
+						</ion-item>
+
+						<div *ngIf="wrong_data.email && Registersubmit">
+							<p>{{ wrong_data.text }}</p>
+						</div>
+
+						<ion-item>
+							<ion-input type="password" placeholder="Password" name="password" [(ngModel)]="register_info.password" required [class.invalid]="wrong_data.password && Registersubmit"></ion-input>
+						</ion-item>
+
+						<div *ngIf="wrong_data.password && Registersubmit">
+							<p>{{ wrong_data.text }}</p>
+						</div>
+					</ion-list>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-col class="create-col">
+					<button ion-button class="submit-btn" full type="submit" [disabled]="!RegisterForm.form.valid">Create Account</button>
+				</ion-col>
+			</ion-row>
+		</form>
+	</div>
+</ion-content>

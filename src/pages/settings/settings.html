@@ -1,0 +1,35 @@
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>Settings</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="settings-content" padding>
+	<div class="settings-box">
+		<ion-list>
+			<ion-list-header class="list-title">User Information</ion-list-header>
+
+			<button ion-item (click)="goToAccount()">
+      	<ion-icon ios="ios-person" md="md-person" item-left></ion-icon>
+      	<ion-label>Account</ion-label>
+    	</button>
+		</ion-list>
+
+		<ion-list class="security-list">
+			<ion-list-header class="list-title">Security</ion-list-header>
+
+			<button ion-item (click)="goToChangePassword()">
+				<ion-icon ios="ios-lock" md="md-lock" item-left></ion-icon>
+				<ion-label>Change Password</ion-label>
+			</button>
+		</ion-list>
+		<ion-row class="signout-div">
+			<ion-col class="signout-col">
+				<button ion-button class="signout-btn" full (click)="goToLogOut()">Log Out</button>
+			</ion-col>
+		</ion-row>
+	</div>
+</ion-content>

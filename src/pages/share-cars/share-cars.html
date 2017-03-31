@@ -1,0 +1,38 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Share Cars</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="shared-content" padding>
+  <div class="shared-box">
+    <ion-list>
+      <ion-list-header class="list-title">
+        Shared Cars
+      </ion-list-header>
+
+      <div *ngIf="shared_count_cars > 0">
+        <div *ngFor="let shared_car of shared_user_cars">
+          <button ion-item no-lines (click)="goToCarInfo(shared_car.id)">
+		        <ion-label>{{ shared_car.car_model }} - {{ shared_car.car_type }}</ion-label>
+		      </button>
+        </div>
+      </div>
+
+      <div *ngIf="shared_count_cars <= 0">
+        <button class="car-item" ion-item no-lines>
+					<ion-label>No shared car registered</ion-label>
+				</button>
+      </div>
+    </ion-list>
+
+		<ion-row>
+			<ion-col class="add-col">
+				<button ion-button class="add-btn" full (click)="goToAddCar()">Add</button>
+			</ion-col>
+		</ion-row>
+  </div>
+</ion-content>

@@ -1,0 +1,16 @@
+Lucarioblack17A@ - For Certificates for app and also Notifications Push (also for android "keystore & key")
+
+API_KEY_FOR_ANDROID - AIzaSyBuvDh6sxttj8y_cNto2TcfUVawf0Fx0Z8
+API_KEY_FOR_IOS - AIzaSyA9D86-O48yHy97SHe6jGzE7BVpCTAJAyk
+
+//Comands to compile and upload app for testing
+ionic build android
+ionic package build ios --profile a_loccar
+ionic upload
+ionic package download
+ionic package info
+
+
+//Android Certificate
+
+keytool -genkey -v -keystore loccarplus.keystore -alias loccarplus -keyalg RSA -keysize 2048 -validity 10000
